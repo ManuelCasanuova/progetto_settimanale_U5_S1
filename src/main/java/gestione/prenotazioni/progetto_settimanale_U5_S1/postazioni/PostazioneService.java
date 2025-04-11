@@ -20,8 +20,8 @@ public class PostazioneService {
         return postazioneRepository.findAll();
     }
 
-    public List <Postazione> findByTipoAndEdificio_Citta(TipoPostazione tipo, String citta){
-        List<Postazione> postazioni = postazioneRepository.findByTipoAndEdificio_Citta(tipo, citta);
+    public List <Postazione> findByTipoAndCitta(TipoPostazione tipo, String citta){
+        List<Postazione> postazioni = postazioneRepository.findByTipoAndCitta(tipo, citta);
         return postazioni;
     }
 

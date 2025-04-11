@@ -42,6 +42,7 @@ public class PrenotazioneService {
     public void cancellaPrenotazione(Prenotazione prenotazione) {
         if(prenotazione.getDataPrenotazione().isBefore(LocalDate.now())) throw new SalvataggioException("Non è possibile cancellare una prenotazione passata.");
         prenotazioneRepository.delete(prenotazione);
-        System.out.println("Prenotazione: " + prenotazione + " cancellata con successo");
+        System.out.println("Prenotazione: " + prenotazione.getPrenotazione_id() + " cancellata con successo");
+
     }
 }

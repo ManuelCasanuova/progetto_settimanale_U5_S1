@@ -96,7 +96,8 @@ public class ApplicationRunner implements CommandLineRunner {
             System.out.println(" ");
 
             while (true) {
-                System.out.println("Seleziona cosa vuoi fare");
+                System.out.println(" ");
+                System.out.println("Scegli dal menu cosa fare");
                 System.out.println("1. Prenota postazione");
                 System.out.println("2. Cancella prenotazione");
                 System.out.println("3. Lista prenotazioni effettuate");
@@ -104,7 +105,7 @@ public class ApplicationRunner implements CommandLineRunner {
                 int scelta2 = scanner.nextInt();
                 scanner.nextLine();
 
-                while (scelta2 != 1 && scelta2 != 3 && scelta2 != 0) {
+                while (scelta2 != 1 && scelta2 !=2 && scelta2 != 3 && scelta2 != 0) {
                     System.out.println("Scelta non valida, riprova. Devi selezionare 1, 2, 3 o 0");
                     scelta2 = scanner.nextInt();
                     scanner.nextLine();
@@ -153,14 +154,11 @@ public class ApplicationRunner implements CommandLineRunner {
 
         System.out.println("Inserisci la città dove si vuole prenotare la postazione");
         String citta = scanner.nextLine();
-
         try {
-            List<Postazione> postazioni = postazioneService.findByTipoAndEdificio_Citta(tipoPostazione, citta);
+            List<Postazione> postazioni = postazioneService.findByTipoAndCitta(tipoPostazione, citta);
             System.out.println("Di seguito l'elenco delle postazioni, seleziona quella di cui hai bisogno.");
             postazioni.forEach(postazione -> System.out.println((postazioni.indexOf(postazione) + 1) + " - " + postazione));
             int selezione = scanner.nextInt();
-            scanner.nextLine();
-
             while (selezione <= 0 || selezione > postazioni.size()) {
                 System.out.println("Scelta non valida, riprova. Devi selezionare un numero tra 1 e " + postazioni.size());
                 selezione = scanner.nextInt();
@@ -211,14 +209,19 @@ public class ApplicationRunner implements CommandLineRunner {
 
     private void cancellaLaPrenotazione(Utente utente) {
         try{
+            System.out.println(" ");
             System.out.println("Di seguito l'elenco delle prenotazioni effettuate");
+            System.out.println(" ");
             List<Prenotazione> prenotazioni = prenotazioneService.cercaPrenotazionePerUtente(utente);
             prenotazioni.forEach(prenotazione -> System.out.println((prenotazioni.indexOf(prenotazione) + 1) + " - " + prenotazione));
-            int scelta = scanner.nextInt();
-            scanner.nextLine();
-
+            System.out.println("Seleziona la prenotazione che vuoi cancellare utilizzando il numero della prenotazione" );
+            int scelta;
             while (true){
+                scelta= scanner.nextInt();
+                scanner.nextLine();
+
                 if(scelta <= 0 || scelta > prenotazioni.size()){
+                    System.out.println(" ");
                     System.out.println("Scelta non valida, riprova. Devi selezionare un numero tra 1 e " + prenotazioni.size());
                     scelta = scanner.nextInt();
                     scanner.nextLine();
@@ -226,7 +229,10 @@ public class ApplicationRunner implements CommandLineRunner {
                     break;
                 }
             }
-            System.out.println("Sei davvero sicuro di voler cancellare la prenotazione: " + prenotazioni.get(scelta - 1) + "?");
+            System.out.println(" ");
+            System.out.println("Sei davvero sicuro di voler cancellare la prenotazione? ");
+            System.out.println(prenotazioni.get(scelta - 1));
+            System.out.println(" ");
             System.out.println("1. Si");
             System.out.println("2. No");
             int scelta2 = scanner.nextInt();

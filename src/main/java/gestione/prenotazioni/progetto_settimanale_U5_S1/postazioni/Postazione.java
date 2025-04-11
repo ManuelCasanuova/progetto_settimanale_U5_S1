@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "Postazione")
+@Table(name = "postazioni")
 
 public class Postazione {
     @Id
