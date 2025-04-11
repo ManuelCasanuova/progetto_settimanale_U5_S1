@@ -1,0 +1,9 @@
+Di seguito un piccolo schema delle relazioni tra le classi:
+
+Edificio   1   -------  più   Postazioni, tante postazioni per lo stesso edificio
+
+
+Postazione 1   -------  molti   Prenotazioni, tante prenotazioni per la stessa postazione, non nella stessa giornata
+
+
+Utente 1 ------ piu   Prenotazioni, tante prenotazioni per lo stesso utente

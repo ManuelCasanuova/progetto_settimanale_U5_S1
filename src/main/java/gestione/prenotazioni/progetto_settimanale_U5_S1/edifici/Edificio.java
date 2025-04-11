@@ -1,13 +1,16 @@
 package gestione.prenotazioni.progetto_settimanale_U5_S1.edifici;
 
+import gestione.prenotazioni.progetto_settimanale_U5_S1.postazioni.Postazione;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
-@AllArgsConstructor
+//@AllArgsConstructor commentato perchè implementato un costruttore più specifico
 @NoArgsConstructor
 @Table(name = "edifici")
 
@@ -25,5 +28,12 @@ public class Edificio {
     @Column(nullable = false, length = 100)
     private String città;
 
+    @OneToMany(mappedBy = "edificio")
+    private List<Postazione> postazioni;
 
+    public Edificio(String indirizzo, String nome, String città) {
+        this.indirizzo = indirizzo;
+        this.nome = nome;
+        this.città = città;
+    }
 }

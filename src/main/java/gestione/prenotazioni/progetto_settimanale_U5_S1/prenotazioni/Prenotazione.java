@@ -11,7 +11,6 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Prenotazione")
 
@@ -20,15 +19,22 @@ public class Prenotazione {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long prenotazione_id;
 
+    @Column(nullable = false)
     private LocalDate  dataPrenotazione;
 
     private int numeroPartecipanti;
 
+    @ManyToOne
+    @JoinColumn(name = "postazione_id")
     private Postazione postazione;
 
+    @ManyToOne
+    @JoinColumn(name = "utente_id")
     private Utente utente;
 
-
-
-
+    public Prenotazione(LocalDate dataPrenotazione, Postazione postazione, Utente utente) {
+        this.dataPrenotazione = dataPrenotazione;
+        this.postazione = postazione;
+        this.utente = utente;
+    }
 }

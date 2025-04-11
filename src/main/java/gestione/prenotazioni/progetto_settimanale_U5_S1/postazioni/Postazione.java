@@ -11,7 +11,6 @@ import java.util.List;
 
 @Data
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Postazione")
 
@@ -20,7 +19,7 @@ public class Postazione {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long postazione_id;
 
-    @Column(nullable = false, length = 100)
+    @Column(length = 150)
     private String descrizione;
 
     @Enumerated(EnumType.STRING)
@@ -29,9 +28,16 @@ public class Postazione {
 
     private int numeroMassimoOccupanti;
 
+    @ManyToOne
     private Edificio edificio;
 
+    @OneToMany(mappedBy = "postazione")
     private List<Prenotazione> prenotazioni;
 
-
+    public Postazione(String descrizione, TipoPostazione tipoPostazione, int numeroMassimoOccupanti, Edificio edificio) {
+        this.descrizione = descrizione;
+        this.tipoPostazione = tipoPostazione;
+        this.numeroMassimoOccupanti = numeroMassimoOccupanti;
+        this.edificio = edificio;
+    }
 }
