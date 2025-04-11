@@ -37,4 +37,14 @@ public class Prenotazione {
         this.postazione = postazione;
         this.utente = utente;
     }
+
+    @Override
+    public String toString() {
+        return "\n" +
+                "Data prenotazione: " + dataPrenotazione + "\n" +
+                "Numero dei partecipanti: " + (numeroPartecipanti!=0 ? numeroPartecipanti: "N/A") + "\n" +
+                "Postazione: " + postazione + "\n" +
+                "Utente: " + utente + "\n" +
+                "Id prenotazione: " + prenotazione_id + "\n";
+    }
 }

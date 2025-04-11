@@ -99,11 +99,12 @@ public class ApplicationRunner implements CommandLineRunner {
                 System.out.println("Seleziona cosa vuoi fare");
                 System.out.println("1. Prenota postazione");
                 System.out.println("2. Cancella prenotazione");
+                System.out.println("3. Lista prenotazioni effettuate");
                 System.out.println("0. Esci");
                 int scelta2 = scanner.nextInt();
                 scanner.nextLine();
 
-                while (scelta2 != 1 && scelta2 != 2 && scelta2 != 0) {
+                while (scelta2 != 1 && scelta2 != 3 && scelta2 != 0) {
                     System.out.println("Scelta non valida, riprova. Devi selezionare 1, 2, 3 o 0");
                     scelta2 = scanner.nextInt();
                     scanner.nextLine();
@@ -129,42 +130,7 @@ public class ApplicationRunner implements CommandLineRunner {
     }
 
 
-    //--------------Metodo per la cancellazione di una prenotazione
 
-
-    private void cancellaLaPrenotazione(Utente utente) {
-      try{
-        System.out.println("Di seguito l'elenco delle prenotazioni effettuate");
-        List<Prenotazione> prenotazioni = prenotazioneService.cercaPrenotazionePerUtente(utente);
-        prenotazioni.forEach(prenotazione -> System.out.println((prenotazioni.indexOf(prenotazione) + 1) + " - " + prenotazione));
-        int scelta = scanner.nextInt();
-        scanner.nextLine();
-
-        while (true){
-            if(scelta <= 0 || scelta > prenotazioni.size()){
-                System.out.println("Scelta non valida, riprova. Devi selezionare un numero tra 1 e " + prenotazioni.size());
-                scelta = scanner.nextInt();
-                scanner.nextLine();
-            } else {
-                break;
-            }
-        }
-        System.out.println("Sei davvero sicuro di voler cancellare la prenotazione: " + prenotazioni.get(scelta - 1) + "?");
-        System.out.println("1. Si");
-        System.out.println("2. No");
-        int scelta2 = scanner.nextInt();
-        scanner.nextLine();
-        while(true){
-            if(scelta2 != 1 && scelta2 != 2) System.out.println("Scelta non valida, riprova. Devi selezionare 1 o 2");
-            else break;
-        }
-        if(scelta2 == 1) prenotazioneService.cancellaPrenotazione(prenotazioni.get(scelta - 1));
-        else System.out.println("Torna al menu");
-    }
-    catch (ListaVuotaException e){
-        System.out.println("Nessuna prenotazione effettuata");
-    }
-    }
 
 
     //-----------Metodo per la prenotazione della postazione
@@ -239,6 +205,45 @@ public class ApplicationRunner implements CommandLineRunner {
             System.out.println("Non è stato possibile salvare la prenotazione, riprova");
         }
     }
+
+    //--------------Metodo per la cancellazione di una prenotazione
+
+
+    private void cancellaLaPrenotazione(Utente utente) {
+        try{
+            System.out.println("Di seguito l'elenco delle prenotazioni effettuate");
+            List<Prenotazione> prenotazioni = prenotazioneService.cercaPrenotazionePerUtente(utente);
+            prenotazioni.forEach(prenotazione -> System.out.println((prenotazioni.indexOf(prenotazione) + 1) + " - " + prenotazione));
+            int scelta = scanner.nextInt();
+            scanner.nextLine();
+
+            while (true){
+                if(scelta <= 0 || scelta > prenotazioni.size()){
+                    System.out.println("Scelta non valida, riprova. Devi selezionare un numero tra 1 e " + prenotazioni.size());
+                    scelta = scanner.nextInt();
+                    scanner.nextLine();
+                } else {
+                    break;
+                }
+            }
+            System.out.println("Sei davvero sicuro di voler cancellare la prenotazione: " + prenotazioni.get(scelta - 1) + "?");
+            System.out.println("1. Si");
+            System.out.println("2. No");
+            int scelta2 = scanner.nextInt();
+            scanner.nextLine();
+            while(true){
+                if(scelta2 != 1 && scelta2 != 2) System.out.println("Scelta non valida, riprova. Devi selezionare 1 o 2");
+                else break;
+            }
+            if(scelta2 == 1) prenotazioneService.cancellaPrenotazione(prenotazioni.get(scelta - 1));
+            else System.out.println("Torna al menu");
+        }
+        catch (ListaVuotaException e){
+            System.out.println("Nessuna prenotazione effettuata");
+        }
+    }
+
+    //--------------Metodo per la visualizzazione dell'intera lista di prenotazioni presenti sul DB
 
     private void ListaPrenotazioniEffettuate( Utente  utente){
         try {

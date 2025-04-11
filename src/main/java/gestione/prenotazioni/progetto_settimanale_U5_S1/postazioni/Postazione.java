@@ -40,4 +40,11 @@ public class Postazione {
         this.numeroMassimoOccupanti = numeroMassimoOccupanti;
         this.edificio = edificio;
     }
+
+    @Override
+    public String toString() {
+        return "\n" + descrizione + '\n' +
+                "Tipo postazione: " + tipoPostazione + "\n" +
+                "Numero massimo di occupanti: " + numeroMassimoOccupanti;
+    }
 }

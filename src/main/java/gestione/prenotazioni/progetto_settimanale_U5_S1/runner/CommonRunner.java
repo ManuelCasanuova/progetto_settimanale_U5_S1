@@ -146,7 +146,7 @@ public class CommonRunner implements CommandLineRunner {
         prenotazione1.setUtente(utente1);
 
         Prenotazione  prenotazione2 = new Prenotazione();
-        prenotazione2.setDataPrenotazione(LocalDate.of(2024,04, 12));
+        prenotazione2.setDataPrenotazione(LocalDate.now());
         prenotazione2.setNumeroPartecipanti(1);
         prenotazione2.setPostazione(postazione1);
         prenotazione2.setUtente(utente3);
