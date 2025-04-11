@@ -26,14 +26,14 @@ public class Edificio {
     private String indirizzo;
 
     @Column(nullable = false, length = 100)
-    private String città;
+    private String citta;
 
     @OneToMany(mappedBy = "edificio")
     private List<Postazione> postazioni;
 
-    public Edificio(String indirizzo, String nome, String città) {
+    public Edificio(String indirizzo, String nome, String citta) {
         this.indirizzo = indirizzo;
         this.nome = nome;
-        this.città = città;
+        this.citta = citta;
     }
 }
