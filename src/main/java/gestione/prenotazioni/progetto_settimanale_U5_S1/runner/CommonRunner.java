@@ -15,6 +15,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 @Order(1)
@@ -63,6 +65,9 @@ public class CommonRunner implements CommandLineRunner {
         edificio5.setIndirizzo("Via Bologna 5");
         edificio5.setCitta("Bologna");
 
+        List<Edificio> edifici = Arrays.asList(edificio1, edificio2, edificio3, edificio4, edificio5);
+        edificioService.saveAllEdifici(edifici);
+
         //----------------------POSTAZIONI---------------------------------------------
 
 
@@ -97,6 +102,9 @@ public class CommonRunner implements CommandLineRunner {
         postazione5.setNumeroMassimoOccupanti(28);
         postazione5.setEdificio(edificio5);
 
+        List<Postazione> postazioni = Arrays.asList(postazione1, postazione2, postazione3, postazione4, postazione5);
+        postazioneService.saveAllPostazioni(postazioni);
+
 
         //---------------------UTENTI---------------------------
 
@@ -126,6 +134,9 @@ public class CommonRunner implements CommandLineRunner {
         utente5.setNomeECognome("Tina Schiaccia");
         utente5.setEmail("tina.schiaccia@example.com");
 
+        List<Utente> utenti = Arrays.asList(utente1, utente2, utente3, utente4, utente5);
+        utenteService.saveAllUtenti(utenti);
+
         //---------------------PRENOTAZIONI---------------------------
 
         Prenotazione prenotazione1 = new Prenotazione();
@@ -151,6 +162,11 @@ public class CommonRunner implements CommandLineRunner {
         prenotazione4.setNumeroPartecipanti(26);
         prenotazione4.setPostazione(postazione5);
         prenotazione4.setUtente(utente2);
+
+        List<Prenotazione> prenotazioni = Arrays.asList(prenotazione1, prenotazione2, prenotazione3, prenotazione4);
+        prenotazioneService.saveAllPrenotazioni(prenotazioni);
+
+
 
     }
 }

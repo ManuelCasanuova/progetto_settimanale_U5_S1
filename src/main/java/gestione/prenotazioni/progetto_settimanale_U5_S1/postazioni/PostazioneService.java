@@ -24,4 +24,8 @@ public class PostazioneService {
         List<Postazione> postazioni = postazioneRepository.findByTipoAndEdificio_Citta(tipo, citta);
         return postazioni;
     }
+
+    public void saveAllPostazioni(List<Postazione> postazioni) {
+        postazioneRepository.saveAll(postazioni);
+    }
 }

@@ -17,7 +17,7 @@ public class PrenotazioneService {
 
     public void savePrenotazione(Prenotazione prenotazione) {
         if(prenotazioneRepository.existsByPostazioneAndDataPrenotazione(prenotazione.getPostazione(), prenotazione.getDataPrenotazione())) throw new SalvataggioException("Impossibile prenotare la postazione per questa data - la postazione è già prenotata.");
-        if(prenotazioneRepository.existByUtenteAndDataPrenotazione(prenotazione.getUtente(), prenotazione.getDataPrenotazione())) throw new SalvataggioException("Impossibile prenotare la postazione per questa data - hai già prenotato per questa data.");
+        if(prenotazioneRepository.existsByUtenteAndDataPrenotazione(prenotazione.getUtente(), prenotazione.getDataPrenotazione())) throw new SalvataggioException("Impossibile prenotare la postazione per questa data - hai già prenotato per questa data.");
         if(prenotazione.getNumeroPartecipanti() <= 0) throw new SalvataggioException("Il numero di partecipanti deve essere maggiore di zero.");
         if(prenotazione.getNumeroPartecipanti() > prenotazione.getPostazione().getNumeroMassimoOccupanti()) throw new SalvataggioException("Il numero di partecipanti supera il numero massimo di posti della postazione.");
         if(prenotazione.getDataPrenotazione().isBefore(LocalDate.now())) throw new SalvataggioException("La data di prenotazione deve essere successiva alla data odierna.");
@@ -33,5 +33,15 @@ public class PrenotazioneService {
         List<Prenotazione> prenotazioni = prenotazioneRepository.findByUtente(utente);
         if(prenotazioni.isEmpty()) throw new ListaVuotaException("Nessuna prenotazione trovata per l'utente: " + utente.getUsername());
         return prenotazioni;
+    }
+
+    public void saveAllPrenotazioni(List<Prenotazione> prenotazioni) {
+        prenotazioneRepository.saveAll(prenotazioni);
+    }
+
+    public void cancellaPrenotazione(Prenotazione prenotazione) {
+        if(prenotazione.getDataPrenotazione().isBefore(LocalDate.now())) throw new SalvataggioException("Non è possibile cancellare una prenotazione passata.");
+        prenotazioneRepository.delete(prenotazione);
+        System.out.println("Prenotazione: " + prenotazione + " cancellata con successo");
     }
 }
